@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.example.herotest.R;
 import com.example.herotest.model.QueryCallbackInf;
-import com.example.herotest.model.QueryService;
+import com.example.herotest.model.service.ServiceQuery;
 
 import android.app.DownloadManager.Query;
 import android.os.Bundle;
@@ -16,8 +16,9 @@ import android.widget.SimpleAdapter;
 
 public class ProvinceActivity extends BaseActivity {
     private ListView lv_province;
-    private Adapter mAdapter;
+    private ArrayAdapter<String> mAdapter;
     private ArrayList<String> ls_province;
+    ServiceQuery mServiceQuery=ServiceQuery.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,21 +29,27 @@ public class ProvinceActivity extends BaseActivity {
     }
     private void initData() {
         ls_province=new ArrayList<String>();
-        QueryService.queryProvince(new QueryCallbackInf(){
+        mServiceQuery.queryProvince(new QueryCallbackInf(){
 
             @Override
-            public void CallbackSucess(Object obj) {
-                // TODO Auto-generated method stub
+            public void onEvent(int type, Object param) {
+                switch (type) {
+                case QueryCallbackInf.CALLBACK_GET_PROVINCE_SUCESS:
+                    ArrayList<String> ls_province=(ArrayList<String>) param; 
+                    refreshData(ls_province);
+                    break;
+
+                default:
+                    break;
+                }
                 
             }
 
-            @Override
-            public void CallbackFailed() {
-                // TODO Auto-generated method stub
-                
-            }
             
         });
     }
-
+    private void refreshData(ArrayList<String> lsProvince){
+    this.ls_province=lsProvince;
+    mAdapter.notifyDataSetChanged();
+}
 }

@@ -8,6 +8,8 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="14" />
 
+    <application android:name="org.litepal.LitePalApplication" >
+    </application>
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"

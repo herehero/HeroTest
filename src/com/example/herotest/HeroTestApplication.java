@@ -1,5 +1,7 @@
 package com.example.herotest;
 
-public class HeroTestApplication {
+import org.litepal.LitePalApplication;
+
+public class HeroTestApplication extends LitePalApplication {
 
 }
