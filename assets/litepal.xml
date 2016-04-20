@@ -4,5 +4,7 @@
     <version value="1" ></version>  
     <list>  
         <mapping class="com.example.herotest.model.location.District"></mapping>
+        <mapping class="com.example.herotest.model.location.Province"></mapping>
+        <mapping class="com.example.herotest.model.location.City"></mapping>
     </list>  
 </litepal>

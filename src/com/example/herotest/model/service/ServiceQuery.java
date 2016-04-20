@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.example.herotest.model.QueryCallbackInf;
+import com.example.herotest.model.location.Province;
 import com.example.herotest.utils.IDGenerator;
 
 
@@ -40,31 +41,30 @@ public class ServiceQuery {
             @Override
             public void run() {
                 super.run();
-                ArrayList<String> ls_province=ServiceDao.getProvince();
+                ArrayList<Province> ls_province=ServiceDatabaseDao.getProvince();
                 if (ls_province==null) {
-                    ls_province=ServiceDatabaseDao.getProvince();
+                     ls_province=new ServiceDao().getProvince();
                 }
                 if (ls_province==null) {
                     notifyUpLayer(requestId,QueryCallbackInf.CALLBACK_GET_PROVINCE_FAILED,ls_province);
                 }else {
                     notifyUpLayer(requestId,QueryCallbackInf.CALLBACK_GET_PROVINCE_SUCESS,ls_province);
                 }
-                
             }
         }.start();
         
     }
 
-    private void notifyUpLayer(final int requestId,final int type,final ArrayList<String> ls_province){
-        removeCallback(requestId);
+    private void notifyUpLayer(final int requestId,final int type,final Object obj){
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
                 QueryCallbackInf queryCallbackInf=getCallback(requestId);
-                queryCallbackInf.onEvent(type, ls_province);
-                
+                queryCallbackInf.onEvent(type, obj);
+                removeCallback(requestId);
             }
         });
+        
     }
     
     private void addCallback(int requestId,QueryCallbackInf queryCallbackInf){
