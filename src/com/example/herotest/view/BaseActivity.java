@@ -29,8 +29,8 @@ public class BaseActivity extends Activity{
 
     }
     
-    public void dismissProgressDialog(final String message){
-        
+    public void dismissProgressDialog(){
+        mProgressDialog.dismiss();
     }
 
 }

@@ -18,11 +18,11 @@ public class ServiceDao extends BaseDao {
     public ArrayList<Province> getProvince() {
         List<District> arrayList = getLocationFromNet();
         ArrayList<Province> provinceList = new ArrayList<Province>();
-        for (int i = 0; i < arrayList.size(); i++) {
+        for (int i = 0; i < arrayList.size()-1; i++) {
             arrayList.get(i).save();
-            if (!(arrayList.get(i).getProvinceName()).equals(arrayList.get(i + 1).getProvinceName())) {
+            if (!(arrayList.get(i).getProvince()).equals(arrayList.get(i + 1).getProvince())) {
                 Province province = new Province();
-                province.setProvinceName(arrayList.get(i + 1).getProvinceName());
+                province.setProvinceName(arrayList.get(i + 1).getProvince());
                 province.save();
                 provinceList.add(province);
             }
@@ -35,10 +35,10 @@ public class ServiceDao extends BaseDao {
         List<District> arrayList = getLocationFromNet();
         List<District> districtList = (List<District>) DataSupport.where("provinceName=?", provinceName);
         List<City> cityList = new ArrayList<City>();
-        for (int i = 0; i < districtList.size(); i++) {
-            if (!(districtList.get(i).getCityName()).equals(districtList.get(i + 1).getCityName())) {
+        for (int i = 0; i < districtList.size()-1; i++) {
+            if (!(districtList.get(i).getCity()).equals(districtList.get(i + 1).getCity())) {
                 City city = new City();
-                city.setCityName(districtList.get(i + 1).getCityName());
+                city.setCityName(districtList.get(i + 1).getCity());
                 city.save();
                 cityList.add(city);
             }

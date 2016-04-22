@@ -3,33 +3,33 @@ package com.example.herotest.model.location;
 import org.litepal.crud.DataSupport;
 
 public class District extends DataSupport{
-private String districtName;
-private String cityName;
-private String provinceName;
-private int mId;
-public String getDistrictName() {
-    return districtName;
+private int id;
+private String district;
+private String city;
+private String province;
+public int getId() {
+    return id;
 }
-public void setDistrictName(String districtName) {
-    this.districtName = districtName;
+public void setId(int id) {
+    this.id = id;
 }
-public String getCityName() {
-    return cityName;
+public String getDistrict() {
+    return district;
 }
-public void setCityName(String cityName) {
-    this.cityName = cityName;
+public void setDistrict(String district) {
+    this.district = district;
 }
-public String getProvinceName() {
-    return provinceName;
+public String getCity() {
+    return city;
 }
-public void setProvinceName(String provinceName) {
-    this.provinceName = provinceName;
+public void setCity(String city) {
+    this.city = city;
 }
-public int getmId() {
-    return mId;
+public String getProvince() {
+    return province;
 }
-public void setmId(int mId) {
-    this.mId = mId;
+public void setProvince(String province) {
+    this.province = province;
 }
 
 }

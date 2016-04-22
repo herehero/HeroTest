@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.example.herotest.model.QueryCallbackInf;
+import com.example.herotest.model.location.City;
+import com.example.herotest.model.location.District;
 import com.example.herotest.model.location.Province;
 import com.example.herotest.utils.IDGenerator;
 
@@ -49,6 +51,46 @@ public class ServiceQuery {
                     notifyUpLayer(requestId,QueryCallbackInf.CALLBACK_GET_PROVINCE_FAILED,ls_province);
                 }else {
                     notifyUpLayer(requestId,QueryCallbackInf.CALLBACK_GET_PROVINCE_SUCESS,ls_province);
+                }
+            }
+        }.start();
+        
+    }
+    public void queryCity(QueryCallbackInf queryCallbackInf,final String provinceName){
+        final int requestId=IDGenerator.generateId();
+        addCallback(requestId,queryCallbackInf);
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                ArrayList<City> ls_city=ServiceDatabaseDao.getCity(provinceName);
+                if (ls_city==null) {
+                    ls_city=(ArrayList<City>) new ServiceDao().getCity(provinceName);
+                }
+                if (ls_city==null) {
+                    notifyUpLayer(requestId,QueryCallbackInf.CALLBACK_GET_PROVINCE_FAILED,ls_city);
+                }else {
+                    notifyUpLayer(requestId,QueryCallbackInf.CALLBACK_GET_PROVINCE_SUCESS,ls_city);
+                }
+            }
+        }.start();
+        
+    }
+    public void queryDistrict(QueryCallbackInf queryCallbackInf,final String cityName){
+        final int requestId=IDGenerator.generateId();
+        addCallback(requestId,queryCallbackInf);
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                ArrayList<District> ls_District=ServiceDatabaseDao.getDistrict(cityName);
+                if (ls_District==null) {
+                    ls_District=(ArrayList<District>) new ServiceDao().getDistrict(cityName);
+                }
+                if (ls_District==null) {
+                    notifyUpLayer(requestId,QueryCallbackInf.CALLBACK_GET_PROVINCE_FAILED,ls_District);
+                }else {
+                    notifyUpLayer(requestId,QueryCallbackInf.CALLBACK_GET_PROVINCE_SUCESS,ls_District);
                 }
             }
         }.start();
